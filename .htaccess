@@ -1,0 +1,21 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+    <Files .htaccess>
+        Order allow,deny
+        Deny from all
+    </Files>
+    <Files .env>
+        Order allow,deny
+        Deny from all
+    </Files>
+    RewriteEngine on
+
+    # Send request to the subfolder, if it's not a real file, folder or it's a root request
+    RewriteCond %{REQUEST_FILENAME} !-d [OR]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} (\.\w+$) [NC]
+    RewriteRule ^(.*)$ public/$1
+</IfModule>
+
