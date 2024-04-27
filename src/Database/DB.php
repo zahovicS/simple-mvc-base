@@ -22,14 +22,13 @@ class DB
      * 
      */
     private static $result;
-    private static $errors;
 
     // public static function table($table)
     // {
     //     self::$table = $table;
     //     return new static();
     // }
-    private static function connection($connection)
+    public static function connection($connection)
     {
         self::$connection = $connection;
         return new static();

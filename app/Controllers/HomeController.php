@@ -43,4 +43,8 @@ class HomeController extends Controller
         $users = User::getUserByUsername($username);
         return Response::json($users);
     }
+    public function dummy(){
+        $users = User::getBlogs();
+        return Response::json($users);
+    }
 }

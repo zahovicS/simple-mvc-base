@@ -17,4 +17,10 @@ class User extends DB
         $data = self::statement("SELECT * FROM users")->all();
         return $data;
     }
+
+    public static function getBlogs()
+    {
+        $data = self::connection("dummy")->statement("SELECT * FROM posts")->all();
+        return $data;
+    }
 }

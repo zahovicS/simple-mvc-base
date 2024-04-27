@@ -17,4 +17,13 @@ return [
         // 'strict' => true, //future ...
         // 'engine' => null, //future ...
     ],
+    'dummy' => [
+        'host' => env('DB_HOST_DUMMY', '127.0.0.1'),
+        'port' => env('DB_PORT_DUMMY', '3306'),
+        'database' => env('DB_DATABASE_DUMMY', 'db'),
+        'username' => env('DB_USERNAME_DUMMY', 'user'),
+        'password' => env('DB_PASSWORD_DUMMY', ''),
+        'charset' => 'utf8mb4',
+        'collation' => 'utf8mb4_general_ci',
+    ],
 ];
