@@ -2,12 +2,10 @@
 
 namespace System\App;
 
-use DI\Container;
-
 class Application
 {
-    public $contianer;
-    public $app_path;
+    private $singletons = [];
+    private $app_path;
     function __construct($app_path)
     {
         $this->app_path = $app_path;
@@ -19,30 +17,26 @@ class Application
             include_once $filename;
         }
     }
-
-    public function getContainer()
+    public function initConfigs(){
+        ConfigSingleton::setPath($this->app_path);
+    }
+    public function singleton($key, $value)
     {
-        if ($this->contianer === null) {
-            $builder = new Container();
-            $this->contianer = $builder;
+        if (!isset($this->singletons[$key])) {
+            $this->singletons[$key] = $value;
         }
-        return $this->contianer;
+        return $this->singletons[$key];
     }
 
-    public function initContainer()
+    public function get($key)
     {
-        $container = $this->getContainer();
-        // $container->set("config" , $this->getConfig());
+        return $this->singletons[$key] ?? null;
     }
 
     public function init()
     {
         $this->initHelpers();
-        $this->initContainer();
-        config("app");
-    }
-    public function getConfig($key){
-
+        $this->initConfigs();
     }
     private function getSystemPath()
     {

@@ -1,6 +1,7 @@
 <?php
 
 use DI\Container;
+use System\App\ConfigSingleton;
 use System\Environment\Env;
 
 //helpers for DotEnv
@@ -15,7 +16,7 @@ if (!function_exists('env')) {
 if (!function_exists('config')) {
     function config($key, $default = null)
     {
-        return (new Container())->get("config")->get($key);
+        return ConfigSingleton::get($key, $default);
     }
 }
 

@@ -23,6 +23,6 @@ class Env
     }
     public static function get($key, $default = null)
     {
-        return static::$repository->get($key) ?? $default;
+        return static::getEnvRepository()->get($key) ?? $default;
     }
 }
