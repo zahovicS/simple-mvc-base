@@ -1,0 +1,61 @@
+:root {
+  --palatinate-blue: #3647e2ff;
+  --french-gray: #bac4d9ff;
+  --alice-blue: #edf4fcff;
+  --jordy-blue: #92bce7ff;
+  --penn-blue: #131a5dff;
+  --glaucous: #7d8abbff;
+  --rich-black: #090918ff;
+  --ultra-violet: #4a4c6bff;
+  --glaucous-2: #5282d0ff;
+  --white: #fdfdfdff;
+}
+
+body {
+  background-color: var(--white);
+}
+
+.container {
+  max-width: 800px;
+}
+.header {
+  margin-top: 6rem;
+  text-align: center;
+}
+h1,h2,h3,h4,h5,h6{
+  color: var(--penn-blue);
+  text-wrap: balance;
+}
+.title {
+  font-size: 6rem;
+}
+.subtitle {
+  font-size: 2rem;
+  text-wrap: pretty;
+}
+.caption{
+  font-style: italic;
+  color: var(--french-gray);
+}
+.docs-section {
+  border-top: 1px solid #eee;
+  padding: 4rem 0;
+  margin-bottom: 0;
+}
+/* Larger than phone */
+@media (min-width: 550px) {
+  .header {
+    margin-top: 18rem;
+  }
+  .docs-section {
+    padding: 4rem 0;
+  }
+}
+/* GitHub Theme */
+.prettyprint {
+  font-family: Menlo, 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco,
+    Consolas, monospace;
+  font-size: 1.2rem;
+  /* padding: 2.5rem 3rem; */
+  -webkit-font-smoothing: antialiased;
+}
