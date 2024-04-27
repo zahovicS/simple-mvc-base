@@ -5,15 +5,15 @@ namespace App\Controllers;
 use App\Models\User;
 use System\Base\Controller;
 use System\Http\Response;
+use System\Views\View;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        echo "Ejemplo";
-        die;
+        return View::render("home");
     }
-    public function ventas()
+    public function orders()
     {
         return Response::json([
             [
@@ -43,7 +43,8 @@ class HomeController extends Controller
         $users = User::getUserByUsername($username);
         return Response::json($users);
     }
-    public function dummy(){
+    public function dummy()
+    {
         $users = User::getBlogs();
         return Response::json($users);
     }
