@@ -2,7 +2,8 @@
     "name": "desarrollo/mvc",
     "autoload": {
         "psr-4": {
-            "System\\": "src/"
+            "System\\": "src/",
+            "App\\": "app/"
         }
     },
     "require": {

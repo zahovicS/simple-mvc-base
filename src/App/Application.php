@@ -2,6 +2,9 @@
 
 namespace System\App;
 
+use App\Models\User;
+use System\Environment\Env;
+
 class Application
 {
     private $singletons = [];
@@ -17,8 +20,18 @@ class Application
             include_once $filename;
         }
     }
-    public function initConfigs(){
+    public function initConfigs()
+    {
         ConfigSingleton::setPath($this->app_path);
+        Env::setPath($this->app_path);
+    }
+    public function initErrors()
+    {
+        if (env("APP_DEBUG", true)) {
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL);
+        }
     }
     public function singleton($key, $value)
     {
@@ -37,6 +50,8 @@ class Application
     {
         $this->initHelpers();
         $this->initConfigs();
+        $this->initErrors();
+        User::getAllUsers();
     }
     private function getSystemPath()
     {

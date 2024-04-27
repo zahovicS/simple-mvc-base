@@ -2,27 +2,30 @@
 
 namespace System\Environment;
 
+use Dotenv\Dotenv;
 use Dotenv\Repository\Adapter\PutenvAdapter;
 
 use Dotenv\Repository\RepositoryBuilder;
 
 class Env
 {
-    protected static $repository;
-    public static function getEnvRepository()
+    protected static $load = false;
+    private static $app_path;
+    public static function loadEnv()
     {
-        if (static::$repository === null) {
-            $builder = RepositoryBuilder::createWithDefaultAdapters();
-
-            $builder = $builder->addAdapter(PutenvAdapter::class);
-
-            static::$repository = $builder->immutable()->make();
+        if (static::$load === false) {
+            $dotenv = Dotenv::createImmutable(self::$app_path);
+            $dotenv->load();
+            static::$load = true;
         }
-
-        return static::$repository;
+    }
+    public static function setPath($app_path)
+    {
+        self::$app_path = $app_path;
     }
     public static function get($key, $default = null)
     {
-        return static::getEnvRepository()->get($key) ?? $default;
+        self::loadEnv();
+        return $_ENV[$key] ?? $default;
     }
 }

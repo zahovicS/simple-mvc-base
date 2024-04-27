@@ -21,7 +21,6 @@ class ConfigSingleton
     }
     public static function setPath($app_path)
     {
-
         self::$app_path = $app_path;
     }
     public static function get($key, $default = null)
