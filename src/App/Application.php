@@ -3,11 +3,11 @@
 namespace System\App;
 
 use App\Models\User;
+use Bramus\Router\Router;
 use System\Environment\Env;
 
 class Application
 {
-    private $singletons = [];
     private $app_path;
     function __construct($app_path)
     {
@@ -33,17 +33,14 @@ class Application
             error_reporting(E_ALL);
         }
     }
-    public function singleton($key, $value)
+    public function initRouter()
     {
-        if (!isset($this->singletons[$key])) {
-            $this->singletons[$key] = $value;
+        $router = new Router();
+        $router->setNamespace('\App\Controllers');
+        foreach (glob($this->getRoutesPath() . "*.php") as $filename) {
+            include $filename;
         }
-        return $this->singletons[$key];
-    }
-
-    public function get($key)
-    {
-        return $this->singletons[$key] ?? null;
+        $router->run();
     }
 
     public function init()
@@ -51,10 +48,18 @@ class Application
         $this->initHelpers();
         $this->initConfigs();
         $this->initErrors();
-        User::getAllUsers();
+        $this->initRouter();
     }
     private function getSystemPath()
     {
-        return $this->app_path . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR;
+        return $this->getMainPath() . "src" . DIRECTORY_SEPARATOR;
+    }
+    private function getRoutesPath()
+    {
+        return $this->getMainPath() . "routes" . DIRECTORY_SEPARATOR;
+    }
+    private function getMainPath()
+    {
+        return $this->app_path . DIRECTORY_SEPARATOR;
     }
 }
