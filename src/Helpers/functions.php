@@ -1,7 +1,7 @@
 <?php
 
-use DI\Container;
-use System\App\ConfigSingleton;
+use System\App\Config;
+use System\App\Url;
 use System\Environment\Env;
 
 //helpers for DotEnv
@@ -16,7 +16,7 @@ if (!function_exists('env')) {
 if (!function_exists('config')) {
     function config($key, $default = null)
     {
-        return ConfigSingleton::get($key, $default);
+        return Config::get($key, $default);
     }
 }
 
@@ -42,10 +42,18 @@ if (!function_exists('dump')) {
         }
     }
 }
-// print the debug
+// method custom
 if (!function_exists('string_starts_with')) {
     function string_starts_with(string $haystack, string $needle): bool
     {
         return 0 === strncmp($haystack, $needle, \strlen($needle));
+    }
+}
+
+// assets
+if (!function_exists('assets')) {
+    function assets(string $asset_path = ""): string
+    {
+        return Url::assets($asset_path);
     }
 }

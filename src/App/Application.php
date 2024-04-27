@@ -2,9 +2,9 @@
 
 namespace System\App;
 
-use App\Models\User;
 use Bramus\Router\Router;
 use System\Environment\Env;
+use System\Views\View;
 
 class Application
 {
@@ -22,8 +22,11 @@ class Application
     }
     public function initConfigs()
     {
-        ConfigSingleton::setPath($this->app_path);
-        Env::setPath($this->app_path);
+        Env::setPath($this->getMainPath());
+        Config::setPath($this->getConfigPath());
+        View::setPath($this->getViewsPath());
+        Url::setPath($this->getUrl());
+        Url::setAssetPath($this->getAssetsPath());
     }
     public function initErrors()
     {
@@ -57,6 +60,22 @@ class Application
     private function getRoutesPath()
     {
         return $this->getMainPath() . "routes" . DIRECTORY_SEPARATOR;
+    }
+    private function getViewsPath()
+    {
+        return $this->getMainPath() . config("app.views_path", "app/Views");
+    }
+    private function getAssetsPath()
+    {
+        return config("app.assets_path", "public/assets");
+    }
+    private function getUrl()
+    {
+        return (isset($_SERVER["HTTPS"]) ? "https" : "http") . "://{$_SERVER["HTTP_HOST"]}{$_SERVER["REQUEST_URI"]}";
+    }
+    private function getConfigPath()
+    {
+        return $this->getMainPath() . "config" . DIRECTORY_SEPARATOR;
     }
     private function getMainPath()
     {

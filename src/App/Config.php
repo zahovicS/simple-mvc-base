@@ -3,22 +3,12 @@
 namespace System\App;
 
 use Exception;
+use System\Base\IBase;
 
-class ConfigSingleton
+class Config implements IBase
 {
-    private static $instance = null;
-    private static $app_path;
-    private function __construct()
-    {
-        // Constructor privado para evitar creación externa
-    }
-    public static function getInstance()
-    {
-        if (self::$instance === null) {
-            self::$instance = new ConfigSingleton();
-        }
-        return self::$instance;
-    }
+    protected static $app_path;
+
     public static function setPath($app_path)
     {
         self::$app_path = $app_path;
@@ -49,14 +39,11 @@ class ConfigSingleton
         }
         return $content;
     }
-    private static function getFullConfigPath()
-    {
-        return self::$app_path . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR;
-    }
     private static function importFile($path)
     {
-        $path = self::getFullConfigPath() . $path . ".php";
+        $path = self::$app_path . $path . ".php";
         if (!file_exists($path)) {
+            dd($path);
             throw new Exception('File not exist in ' . $path, 1);
         }
         return include $path;
