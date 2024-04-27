@@ -42,3 +42,10 @@ if (!function_exists('dump')) {
         }
     }
 }
+// print the debug
+if (!function_exists('string_starts_with')) {
+    function string_starts_with(string $haystack, string $needle): bool
+    {
+        return 0 === strncmp($haystack, $needle, \strlen($needle));
+    }
+}

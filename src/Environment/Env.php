@@ -3,9 +3,6 @@
 namespace System\Environment;
 
 use Dotenv\Dotenv;
-use Dotenv\Repository\Adapter\PutenvAdapter;
-
-use Dotenv\Repository\RepositoryBuilder;
 
 class Env
 {
