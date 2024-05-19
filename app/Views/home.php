@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?= assets("/css/remixicon.css"); ?>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
     <link rel="stylesheet" href="<?= assets("/css/normalize.css"); ?>">
     <link rel="stylesheet" href="<?= assets("/css/skeleton.css"); ?>">
     <link rel="stylesheet" href="<?= assets("/css/style.css"); ?>">
