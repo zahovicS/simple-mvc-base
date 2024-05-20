@@ -2,7 +2,10 @@
 
 namespace System\App;
 
-use Exception;
+use Src\App\Exceptions\ConfigFileNotExistsException;
+use Src\App\Exceptions\ConfigNameNotExistsException;
+use Src\App\Exceptions\ConfigPathNotDefinedException;
+use Src\App\Exceptions\ManyArgumentsForConfigException;
 use System\Base\IBase;
 
 class Config implements IBase
@@ -16,7 +19,7 @@ class Config implements IBase
     public static function get($key, $default = null)
     {
         if (empty(self::$app_path)) {
-            throw new Exception('Error self::$app_path is not denifed', 1);
+            throw new ConfigPathNotDefinedException('Error self::$app_path is not denifed');
         }
         $content = self::getContentFile($key, $default);
         return $content;
@@ -25,10 +28,10 @@ class Config implements IBase
     {
         $stringArr = explode(".", $key);
         if (count($stringArr) == 0) {
-            throw new Exception('$key is not defined', 1);
+            throw new ConfigNameNotExistsException("Config: {$key} not exists", 1);
         }
         if (count($stringArr) > 2) {
-            throw new Exception('Many arguments for configuration:' . $key, 1);
+            throw new ManyArgumentsForConfigException("Many arguments for configuration: {$key}, only 2 are accepted.", 1);
         }
         $content = self::importFile($stringArr[0]);
         if (empty($content)) {
@@ -44,7 +47,7 @@ class Config implements IBase
         $path = self::$app_path . $path . ".php";
         if (!file_exists($path)) {
             dd($path);
-            throw new Exception('File not exist in ' . $path, 1);
+            throw new ConfigFileNotExistsException('File not exist in ' . $path, 1);
         }
         return include $path;
     }
